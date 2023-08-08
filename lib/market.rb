@@ -54,7 +54,7 @@ class Market
     @vendors.each do |vendor|
       inventory_hash = vendor.inventory
   
-      inventory_hash.each do |item, _quantity|
+      inventory_hash.each do |item, quantity|
         item_name = item.name
         all_item_names << item_name
       end
