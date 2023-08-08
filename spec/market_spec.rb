@@ -1,6 +1,7 @@
 require './lib/item'
 require './lib/vendor'
 require './lib/market'
+require 'date'
 
 RSpec.describe Market do
   before(:each) do 
@@ -19,6 +20,7 @@ RSpec.describe Market do
       expect(@market).to be_a(Market)
       expect(@market.name).to eq("South Pearl Street Farmers Market")
       expect(@market.vendors).to eq([])
+      expect(@market.date).to eq("08/08/2023")
     end
   end
 
@@ -119,6 +121,28 @@ RSpec.describe Market do
       expected = ['Banana Nice Cream', 'Peach', 'Peach-Raspberry Nice Cream', 'Tomato']
 
       expect(@market.sorted_item_list).to eq(expected)
+    end
+  end
+
+  describe "#date_format" do
+    it "assigns the date as a string for market created today" do
+      expect(@market.date_format).to eq("08/08/2023")
+    end
+
+    it "assigns the date as a string for a market created in the past" do
+      past_date = Date.new(2023, 8, 7)
+      allow(Date).to receive(:today).and_return(past_date)
+
+      market = Market.new("Market Name")
+      expect(@market.date_format).to eq("07/08/2023")
+    end
+
+    it "assigns the date as a string for a market created in the future" do
+      past_date = Date.new(2023, 8, 9)
+      allow(Date).to receive(:today).and_return(past_date)
+
+      market = Market.new("Market Name")
+      expect(@market.date_format).to eq("09/08/2023")
     end
   end
 end
