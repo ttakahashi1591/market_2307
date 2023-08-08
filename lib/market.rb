@@ -1,10 +1,12 @@
 class Market
   attr_reader :name,
-              :vendors
+              :vendors,
+              :date
 
   def initialize(name)
     @name = name
     @vendors = []
+    @date = date_format
   end
 
   def add_vendor(vendor)
@@ -45,7 +47,7 @@ class Market
   
     overstocked_items
   end
-  
+
   def sorted_item_list
     all_item_names = []
   
@@ -61,5 +63,12 @@ class Market
     unique_item_names = all_item_names.uniq
     sorted_item_names = unique_item_names.sort
     sorted_item_names
+  end
+
+  def date_format
+    current_date = Date.today
+    formatted_date = current_date.strftime('%d/%m/%Y')
+
+    formatted_date
   end
 end
